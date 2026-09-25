@@ -192,3 +192,8 @@ melhor_dia = compras_por_dia_semana.idxmax()
 melhor_semana = compras_por_semana.idxmax()
 print(f"\nDia da semana com mais movimento: {melhor_dia}")
 print(f"Semana com mais compras: semana {melhor_semana} ({compras_por_semana.max()} compras)")
+
+# ================== Exportação do dataset ==================
+
+df.to_csv("df_limpo.csv", index=False)
+print(f"\nDataset limpo exportado para df_limpo.csv ({len(df)} linhas, {df.shape[1]} colunas)")
