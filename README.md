@@ -1,462 +1,255 @@
 # 📊 Análise de Dados de Varejo com Python
 Mini-Projeto Avaliativo - Módulo 1 - Semana 07 - Curso de Análise de Dados com Python
 
-📌 Sobre o projeto
+Projeto de análise exploratória e preparação de dados de varejo desenvolvido em Python, com foco em ETL, Data Cleaning, validação de dados, estatística descritiva e análise de transações.
 
-Este projeto apresenta uma análise exploratória e tratamento de dados de varejo utilizando Python, aplicando técnicas fundamentais de preparação, limpeza, validação, estatística descritiva e agregação de dados.
+O projeto parte de uma base com 830.000 registros e 14 colunas, realiza o tratamento de inconsistências estruturais e categóricas, remove duplicidades, valida a relação entre itens e compras por meio do identificador CO_ID e produz um dataset tratado com 733.447 registros e 10 colunas.
 
-O objetivo é transformar uma base transacional em um conjunto de dados mais consistente e estruturado, permitindo identificar padrões relacionados a:
+A análise também investiga o perfil dos clientes, composição do mix de produtos, distribuição por gênero e comportamento das transações ao longo do tempo.
 
-categorias de produtos;
-perfil de clientes;
-quantidade de itens por compra;
-distribuição das compras por gênero;
-comportamento das transações ao longo da semana;
-evolução do volume de compras;
-qualidade e consistência dos dados.
+## 📌 1. Sobre o Projeto
+O objetivo é transformar uma base transacional de varejo em um conjunto de dados mais consistente, estruturado e adequado para análises posteriores.
 
-O projeto foi desenvolvido como parte do Mini-Projeto Avaliativo do Módulo 1 — Semana 07 do Curso de Análise de Dados com Python.
+O projeto contempla as seguintes atividades:
+· ingestão da base de dados;
+· exploração inicial da estrutura;
+· identificação e remoção de colunas residuais;
+· conversão e validação de datas;
+· tratamento de categorias sem classificação;
+· identificação e remoção de registros duplicados;
+· validação da unidade de análise por meio de CO_ID;
+· estatística descritiva da quantidade de filhos dos clientes;
+· análise do mix de produtos;
+· análise de compras por gênero;
+· análise percentual;
+· análise temporal das transações;
+· exportação do dataset tratado.
 
-🎯 Objetivos
-Objetivo geral
+O fluxo implementado no projeto segue a lógica de Extração → Transformação → Validação → Análise → Exportação, aproximando o exercício acadêmico de um fluxo básico de ETL aplicado a dados de negócio.
 
-Realizar o processo de preparação e análise exploratória de uma base de dados de varejo, utilizando Python e bibliotecas de análise de dados.
+## 🧰 2. Tecnologias Utilizadas
+Aqui está uma tabela com as tecnologias e suas aplicações:
 
-Objetivos específicos
-Importar e estruturar a base de dados;
-Avaliar a estrutura e os tipos das variáveis;
-Padronizar variáveis de data;
-Identificar valores ausentes;
-Tratar categorias sem classificação;
-Identificar e remover registros duplicados;
-Validar a relação entre compras e itens vendidos;
-Aplicar estatística descritiva;
-Realizar agrupamentos com groupby;
-Criar tabelas dinâmicas com pivot_table;
-Calcular percentuais de participação;
-Analisar o comportamento das compras por dia da semana;
-Avaliar a evolução semanal das transações;
-Exportar uma versão tratada da base.
-🗂️ Estrutura do repositório
-MiniProjeto_PedroSouza_Analise_de_Dados_T6/
-│
-├── BaseVarejo.csv
-├── df_limpo.csv
-├── Mini_Projeto_Varejo.py
-├── README.md
-└── .gitignore
-Arquivos
-Arquivo	Descrição
-BaseVarejo.csv	Base de dados original utilizada na análise
-Mini_Projeto_Varejo.py	Script Python responsável pelo processo de análise
-df_limpo.csv	Base resultante após tratamento e limpeza
-.gitignore	Arquivos e diretórios ignorados pelo Git
-README.md	Documentação do projeto
+| Tecnologia: | Aplicação: |
+|---|---|
+| **Python:** | Linguagem principal utilizada no desenvolvimento. |
+| **Pandas:** | Leitura, transformação, limpeza, agrupamento e análise dos dados. |
+| **NumPy:** | Operações numéricas e suporte à análise. |
+| **Matplotlib:** | Exploração e visualização dos dados. |
+| **KaggleHub:** | Obtenção programática da base de dados disponibilizada no Kaggle. |
 
-A estrutura atual do repositório contém esses arquivos principais.
+## 🔄 3. Etapas Realizadas
+Aqui está a tabela com as etapas, atividades e resultados:
 
-🧰 Tecnologias utilizadas
+| Etapa: | Atividade: | Resultado: |
+|---|---|---|
+| 1 | Extração: | Base carregada com 830.000 registros. |
+| 2 | Exploração Inicial: | Identificação de 14 colunas e estrutura dos dados. |
+| 3 | Limpeza Estrutural: | Remoção de 4 colunas residuais. |
+| 4 | Tratamento de Datas: | Conversão da coluna DATA para datetime. |
+| 5 | Tratamento Categórico: | Padronização de registros #N/D. |
+| 6 | Remoção de Duplicidades: | Exclusão de 96.553 registros duplicados. |
+| 7 | Validação de CO_ID: | Identificação de 18.471 compras únicas. |
+| 8 | Estatística Descritiva: | Análise da variável CL_FHL. |
+| 9 | Agrupamentos: | Análises por categoria e gênero. |
+| 10 | Tabela Dinâmica: | Cruzamento entre categoria e gênero. |
+| 11 | Análise Temporal: | Avaliação por dia da semana e semana do ano. |
+| 12 | Exportação: | Geração do arquivo df_limpo.csv. |
 
-O projeto foi desenvolvido em Python, utilizando principalmente as seguintes bibliotecas:
+As etapas de transformação, limpeza, validação de CO_ID, estatística descritiva, agrupamentos e exportação estão implementadas no script do projeto.
 
-🐍 Python
+## 🧹 4. Decisões de Limpeza
+Aqui está a tabela com os problemas identificados e tratamentos realizados:
 
-Linguagem utilizada para implementação de todo o processo de análise.
+| Problema Identificado: | Tratamento Realizado: | Justificativa: |
+|---|---|---|
+| 4 colunas Unnamed. | Remoção das colunas. | Eram colunas residuais sem conteúdo analítico. |
+| DATA armazenada como texto. | Conversão para datetime utilizando %d/%m/%Y. | Permitir análises temporais e operações específicas de datas. |
+| Datas inválidas. | Conversão com errors="coerce". | Permitir identificar eventuais registros impossíveis de converter sem interromper o processamento. |
+| PR_CAT = #N/D. | Substituição por Sem Categoria. | Preservar a venda sem atribuir artificialmente uma categoria. |
+| Valores nulos em PR_CAT. | Preenchimento com Sem Categoria. | Preservar o registro e explicitar a ausência de classificação. |
+| Registros duplicados. | drop_duplicates(). | Remover repetições integralmente idênticas. |
+| Múltiplas linhas para o mesmo CO_ID. | Não remover. | Uma compra pode conter múltiplos itens; portanto, linhas não representam necessariamente compras distintas. |
+| Ausência de variável monetária. | Não foi realizada imputação. | A base não apresenta preço/receita; criar valores monetários artificialmente introduziria informação não observada. |
 
-🐼 Pandas
+A lógica de tratamento de PR_CAT, remoção de duplicidades e validação de CO_ID segue a implementação do script do projeto.
 
-Utilizado para:
+## 📈 5. Resultado da Limpeza
+Aqui está a tabela com os indicadores antes e depois da limpeza:
 
-leitura da base;
-manipulação de DataFrames;
-tratamento de valores ausentes;
-conversão de tipos;
-remoção de duplicidades;
-agrupamentos;
-tabelas dinâmicas;
-análise temporal;
-exportação dos dados tratados.
-🔢 NumPy
+| Indicador: | Antes da Limpeza: | Depois da Limpeza: | Variação: |
+|---|---|---|---|
+| Registros. | 830.000 | 733.447 | -96.553 (-11,63%) |
+| Colunas. | 14 | 10 | -4 (-28,57%) |
+| Colunas Unnamed. | 4 | 0 | -4 |
+| Duplicidades Exatas. | 96.553 | 0 | -96.553 |
+| Datas Inválidas. | 0 | 0 | Sem alteração. |
+| #N/D em PR_CAT. | 3.650 | 0 | -3.650 |
+| Sem Categoria. | 0 | 3.228 | Categoria preservada após remoção de duplicidades. |
+| Compras Únicas (CO_ID). | 18.471 | 18.471 | Mantidas. |
 
-Utilizado como biblioteca de apoio para operações relacionadas à manipulação e análise numérica.
+**📌 Impacto da Limpeza:**
 
-📈 Matplotlib
+A limpeza eliminou 96.553 registros duplicados, correspondentes a aproximadamente 11,63% da base original.
 
-Biblioteca utilizada como suporte à visualização e exploração dos dados.
+Além disso, as quatro colunas residuais foram eliminadas, reduzindo a estrutura de 14 para 10 colunas.
 
-📦 KaggleHub
+A transformação de #N/D para Sem Categoria preservou a informação das transações, evitando a exclusão de registros apenas porque a classificação do produto estava ausente.
 
-Utilizado para obtenção programática da base de dados disponibilizada no Kaggle.
+## 🛒 6. Regra de negócio — CO_ID
 
-🔄 Pipeline de análise
+**Conceito:**
+O CO_ID representa a identificação da compra/transação.
 
-O projeto segue um fluxo de tratamento e análise dividido em etapas:
+A principal regra de negócio identificada é:
 
-          ┌─────────────────────┐
-          │   Base de Varejo    │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │     Ingestão        │
-          │      dos dados      │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Exploração inicial  │
-          │ estrutura e tipos   │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Tratamento de tipos │
-          │      e datas        │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Limpeza de nulos e  │
-          │     duplicidades    │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Validação da        │
-          │ estrutura de compra │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Estatística         │
-          │    descritiva       │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Agrupamentos e      │
-          │  tabelas dinâmicas  │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Análise temporal    │
-          └──────────┬──────────┘
-                     │
-                     ▼
-          ┌─────────────────────┐
-          │ Dataset tratado     │
-          │   df_limpo.csv      │
-          └─────────────────────┘
-🧹 Tratamento e qualidade dos dados
+*Uma linha da base representa um item comprado; um CO_ID representa uma compra, que pode conter um ou vários itens.*
 
-Uma das primeiras etapas consiste na avaliação da estrutura da base, incluindo quantidade de registros, quantidade de colunas, nomes das variáveis e respectivos tipos.
+Portanto:
 
-Também são removidas colunas residuais cujo nome começa com Unnamed.
+*Quantidade de linhas ≠ quantidade de compras.*
 
-A variável DATA, originalmente armazenada como texto, é convertida para o tipo datetime, utilizando o formato brasileiro:
-
-df["DATA"] = pd.to_datetime(
-    df["DATA"],
-    format="%d/%m/%Y",
-    errors="coerce"
-)
-
-Registros que não possam ser convertidos corretamente são transformados em NaT, permitindo posterior identificação e tratamento.
-
-🔎 Tratamento de valores ausentes
-
-A variável PR_CAT, responsável pela categoria do produto, apresenta registros classificados como #N/D e valores nulos.
-
-Esses registros são convertidos para:
-
-Sem Categoria
-
-A estratégia preserva a informação da venda sem atribuir artificialmente uma categoria ao produto.
-
-df["PR_CAT"] = df["PR_CAT"].replace(
-    "#N/D",
-    "Sem Categoria"
-)
-
-df["PR_CAT"] = df["PR_CAT"].fillna(
-    "Sem Categoria"
-)
-♻️ Tratamento de duplicidades
-
-O projeto também verifica a existência de registros duplicados.
-
-Como a duplicação ocorre em registros integralmente iguais, esses registros são removidos:
-
-df = df.drop_duplicates()
-
-Antes da remoção, o script registra a quantidade de linhas existentes para permitir a mensuração do impacto do tratamento.
-
-🧾 Validação das compras
-
-Uma etapa importante da análise é a validação da variável CO_ID.
-
-O identificador representa a compra/transação e pode estar associado a mais de um item.
-
-Por isso, o projeto diferencia:
-
-linhas da base → itens comprados;
-CO_ID distintos → compras únicas.
-
-A análise utiliza:
+Para calcular o número de compras, deve-se utilizar:
 
 df["CO_ID"].nunique()
 
-e:
+Enquanto a quantidade de itens associados a cada compra pode ser obtida por:
 
 df.groupby("CO_ID").size()
 
-Essa abordagem evita interpretar cada linha como uma compra independente quando uma mesma transação contém múltiplos produtos.
+Essa distinção é fundamental para evitar que uma compra com vários produtos seja contabilizada como várias compras. A própria implementação do projeto utiliza essa lógica para validar CO_ID.
+
+**Indicadores de CO_ID:**
+| Indicador: | Resultado: |
+|---|---:|
+| Registros após Limpeza: | 733.447 |
+| Compras únicas (CO_ID): | 18.471 |
+| Itens médios por compra: | 39,71 |
+| Mediana de itens por compra: | 41 |
+| Mínimo de itens em uma compra: | 1 |
+| Máximo de itens em uma compra: | 81 |
+| Compras com apenas 1 item: | 207 |
+| Compras com múltiplos itens: | 18.264 |
+| % de compras com múltiplos itens: | 98,88% |
+| % de compras com apenas 1 item: | 1,12% |
 
-📊 Estatística descritiva
+**📌 Interpretação:**
 
-O projeto realiza uma análise estatística da variável CL_FHL, relacionada à quantidade de filhos dos clientes.
+Os dados demonstram que **18.264 das 18.471 compras**, ou aproximadamente **98,88%**, possuem mais de um item.
 
-São calculadas as seguintes métricas:
+Esse resultado reforça que a unidade correta para análises de **transações/tickets** é o CO_ID, enquanto a unidade correta para análises de itens vendidos é a linha do dataset.
 
-média;
-mediana;
-desvio padrão;
-moda;
-valor mínimo;
-valor máximo;
-quantidade de observações;
-quartis.
+## 📊 7. Estatística Descritiva — Número de Filhos
+A variável analisada é CL_FHL, correspondente à quantidade de filhos.
+| Estatística: | Resultado: |
+|---|---:|
+| Quantidade de observações: | 733.447 |
+| Média: | 1,15 |
+| Mediana: | 0 |
+| Moda: | 0 |
+| Desvio Padrão: | 1,42 |
+| Mínimo: | 0 |
+| 1º Quartil — 25%: | 0 |
+| 2º Quartil — 50%: | 0 |
+| 3º Quartil — 75%: | 2 |
+| Máximo: | 4 |
 
-Exemplo:
+**📌 Interpretação:**
 
-media = df["CL_FHL"].mean()
-mediana = df["CL_FHL"].median()
-desvio_padrao = df["CL_FHL"].std()
-moda = df["CL_FHL"].mode()[0]
+A média de 1,15 filho é superior à mediana de 0, indicando uma **distribuição assimétrica**.
 
-Essa etapa permite compreender a distribuição da variável e identificar suas principais características estatísticas.
+A moda igual a **0** demonstra que esse **é o número de filhos mais frequente na base**.
 
-🛒 Análise por categoria
+O terceiro quartil igual a 2 significa que **75% das observações possuem até 2 filhos**, enquanto o **máximo observado é de 4 filhos**.
 
-Uma das análises realizadas identifica a quantidade de itens vendidos por categoria:
+## 💡 8. Principais Insights
+📊 A categoria **ALIMENTOS concentra 384.197 itens**, representando **52,38% de todos os registros após a limpeza**. HIGIENE aparece em segundo lugar, com 137.702 itens (18,77%), enquanto LIMPEZA representa 128.632 itens (17,54%).
 
-itens_por_categoria = (
-    df.groupby("PR_CAT")
-      .size()
-      .sort_values(ascending=False)
-)
+📈 **Somadas, as categorias ALIMENTOS, HIGIENE e LIMPEZA representam aproximadamente 88,69% de todos os itens**, demonstrando forte concentração do mix nesses três grupos.
 
-A análise permite compreender a composição do mix de produtos comercializados.
+🏷️ **A categoria Sem Categoria representa** apenas 3.228 registros, ou **0,44% da base tratada**, indicando que a ausência de classificação possui baixo peso relativo no conjunto analisado.
 
-Entre os resultados obtidos no próprio script, ALIMENTOS representa aproximadamente 52% dos itens, enquanto HIGIENE representa aproximadamente 19%.
+🛒 **Em relação às compras, foram identificados 18.471 CO_ID distintos**. Como 98,88% das compras possuem múltiplos itens, utilizar a contagem de linhas como proxy para quantidade de compras produziria uma interpretação incorreta do volume transacional.
 
-👥 Análise por gênero
+👥 **Na distribuição por gênero, foram identificadas 9.615 compras únicas associadas ao gênero F (52,05%) e 8.856 ao gênero M (47,95%)**, indicando uma diferença de aproximadamente 4,10 pontos percentuais.
 
-O projeto também calcula a quantidade de compras únicas por gênero:
+👩‍👨 Entre as categorias, **a participação feminina varia de 51,65% a 53,13%, enquanto a participação masculina varia de 46,87% a 48,35%**. A maior participação masculina ocorre em BEBIDAS (48,35%), seguida por PET (48,14%).
 
-compras_por_genero = (
-    df.groupby("CL_GENERO")["CO_ID"]
-      .nunique()
-      .sort_values(ascending=False)
-)
+👶 **A análise de CL_FHL mostra que 0 filhos é simultaneamente a moda e a mediana, enquanto a média é de 1,15**, evidenciando concentração de observações em valores baixos e uma distribuição com dispersão relevante.
 
-Além disso, é construída uma tabela dinâmica cruzando:
+## 🔄 9. Reflexão sobre o Fluxo ETL e Aplicação
+O projeto demonstra, em escala acadêmica, as principais etapas de um processo ETL — Extract, Transform, Load.
 
-Categoria × Gênero
+| Etapa: | Descrição: |
+|---|---|
+| **Extract** *ou Extração* | A base é obtida programaticamente e carregada em um DataFrame utilizando Pandas. |
+| **Transform** *ou Transformação* | É realizada a transformação dos dados por meio de: remoção de colunas residuais; conversão de tipos; tratamento de categorias; identificação de duplicidades; validação de identificadores; criação de indicadores; agrupamentos; estatística descritiva; criação de variáveis temporais. |
+| **Load** *ou — Carga* | Após o tratamento, o conjunto de dados é exportado para df_limpo.csv, criando uma camada de dados preparada para análises posteriores. |
 
-por meio de pivot_table.
+**Aplicação Profissional:**
 
-pivot_categoria_genero = pd.pivot_table(
-    df,
-    index="PR_CAT",
-    columns="CL_GENERO",
-    values="CO_ID",
-    aggfunc="count",
-    fill_value=0
-)
+Em um cenário empresarial, esse fluxo poderia ser ampliado para:
 
-Essa estrutura possibilita analisar a distribuição dos itens entre os gêneros dentro de cada categoria.
+Aqui está o fluxograma em formato de tabela:
 
-📈 Análise de participação percentual
+| # | Etapa: | Descrição: |
+|---|---|---|---|
+| 1 | Fonte de Dados: | Origem dos dados a serem analisados. |
+| 2 | Extração Automatizada: | Obtenção programática dos dados. |
+| 3 | Staging (Dados Brutos): | Armazenamento temporário dos dados brutos. |
+| 4 | Validação da Qualidade: | Verificação da integridade e consistência. |
+| 5 | Transformação e Limpeza: | Tratamento, limpeza e preparação dos dados. |
+| 6 | Dados Tratados: | Dados prontos para análise. |
+| 7 | Data Warehouse / Data Lake: | Armazenamento centralizado de dados. |
+| 8 | Power BI / Dashboard / Analytics: | Visualização e análise exploratória. |
+| 9 | Tomada de Decisão: | Insights e ações estratégicas. |
 
-Além das contagens absolutas, o projeto calcula indicadores relativos.
+O principal aprendizado do projeto é que a **qualidade da análise depende diretamente da qualidade e da correta interpretação dos dados**. Antes de calcular indicadores, é necessário compreender a unidade de análise, identificar duplicidades, tratar inconsistências e validar as regras de negócio.
 
-Participação das categorias
-pct_categoria_total = (
-    itens_por_categoria /
-    itens_por_categoria.sum() * 100
-).round(2)
-Participação dos gêneros
-pct_genero_total = (
-    compras_por_genero /
-    compras_por_genero.sum() * 100
-).round(2)
-Distribuição de gênero dentro de cada categoria
-pct_dentro_categoria = (
-    pivot_categoria_genero
-    .div(pivot_categoria_genero.sum(axis=1), axis=0)
-    * 100
-)
+Uma evolução natural seria incorporar validações automatizadas de qualidade, testes de dados, dicionário de dados, pipeline agendado e integração com ferramentas de BI.
 
-Esses indicadores complementam as contagens e permitem analisar a representatividade relativa de cada grupo.
+## 🚀 10. Como Executar:
+| Etapa: | Atividade: | Comando: |
+|---|---|---|
+| 1 | Clonar o Repositório: | `git clone https://github.com/meninodeminas/MiniProjeto_PedroSouza_Analise_de_Dados_T6.git` |
+| 2 | Acessar a Pasta: | `cd MiniProjeto_PedroSouza_Analise_de_Dados_T6` |
+| 3 | Criar um Ambiente Virtual: | `python -m venv .venv` |
+| 4 | Ativar o Ambiente Virtual (Windows): | `.venv\Scripts\activate` |
+| 4 | Ativar o Ambiente Virtual (Linux/macOS): | `source .venv/bin/activate` |
+| 5 | Instalar as Dependências: | `pip install pandas numpy matplotlib kagglehub` |
+| 6 | Executar o Projeto: | `python Mini_Projeto_Varejo.py` |
 
-📅 Análise temporal
+Esses comandos estão alinhados ao fluxo de execução documentado no repositório.
 
-O projeto também incorpora uma dimensão temporal à análise.
+*Observação: o script atual utiliza kagglehub para realizar a obtenção da base. Caso seja utilizada a base CSV local, o código pode ser adaptado para ler diretamente o arquivo com pd.read_csv().*
 
-A partir da variável DATA, são criadas:
+## 📁 11. Estrutura do Projeto
 
-DIA_SEMANA;
-SEMANA_DO_ANO.
-df["DIA_SEMANA"] = (
-    df["DATA"]
-    .dt.day_name()
-    .map(dias_pt)
-)
+· 📄 BaseVarejo.csv: Base de dados original.
 
-df["SEMANA_DO_ANO"] = (
-    df["DATA"]
-    .dt.isocalendar()
-    .week
-)
+· 📄 df_limpo.csv: Base após tratamento e limpeza.
 
-Com essas variáveis, são analisadas:
+· 🐍 Mini_Projeto_Varejo.py: Script de análise, transformação e tratamento.
 
-quantidade de compras por dia da semana;
-quantidade de compras por semana;
-crescimento percentual semana a semana;
-dia com maior volume de compras;
-semana com maior quantidade de transações.
+· 📄 README.md: Documentação do projeto.
 
+· 📄 .gitignore: Arquivos e diretórios ignorados pelo Git.
 
+A estrutura acima corresponde aos principais arquivos atualmente presentes no repositório.
 
+## 🎯 Conclusão
+O projeto demonstra a aplicação prática de conceitos fundamentais de Análise de Dados com Python, especialmente em ETL, Data Cleaning, Validação de Dados, Estatística Descritiva e Análise Exploratória.
 
-💡 Principais insights
+O processo **transformou uma base de 830.000 registros em um dataset tratado de 733.447 registros, removendo 96.553 duplicidades e 4 colunas residuais, além de padronizar a classificação de produtos sem categoria**.
 
-A análise realizada no projeto identificou alguns pontos relevantes:
+A análise também **evidenciou que o CO_ID é essencial para diferenciar item vendido de compra realizada**, uma vez que quase 99% das transações possuem múltiplos itens.
 
-🛍️ Mix de produtos
+Como evolução, **o projeto pode incorporar dados financeiros, segmentação de clientes, indicadores de ticket médio, dashboards, testes automatizados de qualidade e um pipeline ETL completo**.
 
-A categoria ALIMENTOS concentra aproximadamente 52% dos itens registrados, seguida por HIGIENE, com aproximadamente 19%.
-
-👥 Distribuição por gênero
-
-A distribuição entre homens e mulheres apresenta diferenças relativamente pequenas na maior parte das categorias analisadas.
-
-🐾 Categorias PET e BEBIDAS
-
-O script identifica uma participação masculina ligeiramente superior à média masculina geral nessas duas categorias.
-
-Essa diferença é pequena e deve ser interpretada como uma característica descritiva da amostra analisada, não como evidência de causalidade ou comportamento geral da população.
-
-🏷️ Dados sem categoria
-
-Os registros classificados como Sem Categoria representam aproximadamente 0,44% dos itens, segundo a análise realizada no próprio projeto.
-
-🧾 Estrutura das compras
-
-A validação de CO_ID demonstra que uma mesma compra pode conter múltiplos itens. Portanto, análises de compras devem considerar o identificador da transação quando o objetivo for mensurar tickets/compras, em vez de simplesmente contar linhas.
-
-💰 Limitação da base
-
-A base analisada não apresenta uma variável monetária de preço ou receita.
-
-Consequentemente, a análise está concentrada principalmente em volume de itens e quantidade de compras, não sendo possível calcular diretamente:
-
-faturamento;
-ticket médio;
-receita por categoria;
-margem;
-contribuição financeira por produto.
-
-Uma possível evolução seria integrar uma tabela de preços utilizando PR_ID.
-
-🚀 Como executar
-1. Clone o repositório
-git clone https://github.com/meninodeminas/MiniProjeto_PedroSouza_Analise_de_Dados_T6.git
-2. Acesse a pasta
-cd MiniProjeto_PedroSouza_Analise_de_Dados_T6
-3. Crie um ambiente virtual
-python -m venv .venv
-4. Ative o ambiente virtual
-Windows
-.venv\Scripts\activate
-Linux/macOS
-source .venv/bin/activate
-5. Instale as dependências
-pip install pandas numpy matplotlib kagglehub
-6. Execute o projeto
-python Mini_Projeto_Varejo.py
-
-O script realiza o processamento da base e gera o arquivo:
-
-df_limpo.csv
-
-com os dados após as etapas de tratamento.
-
-📚 Conceitos aplicados
-
-Este projeto demonstra conhecimentos práticos em:
-
-Python para análise de dados
-
-Pandas
-
-NumPy
-
-Matplotlib
-
-Importação de dados
-
-Data Cleaning
-
-Tratamento de valores ausentes
-
-Tratamento de duplicidades
-
-Conversão de tipos
-
-Manipulação de datas
-
-Estatística descritiva
-
-groupby
-
-pivot_table
-
-Análise percentual
-
-Análise temporal
-
-Validação de dados
-
-Exportação de datasets
-
-🔮 Possíveis evoluções
-
-Como próximos passos para transformar o projeto em uma análise mais próxima de um cenário profissional, podem ser incorporadas:
-
-Análise de faturamento, mediante integração com dados de preço;
-Ticket médio por cliente e categoria;
-Análise de frequência de compra;
-Segmentação de clientes;
-Análise de sazonalidade;
-Visualizações exploratórias com Seaborn ou Plotly;
-Dashboard interativo em Power BI;
-Automatização do pipeline de tratamento;
-Validações automatizadas da qualidade dos dados;
-Documentação de um dicionário de dados.
-🎓 Contexto acadêmico
-
-Projeto: Mini-Projeto Avaliativo — Módulo 1 — Semana 07
-Curso: Análise de Dados com Python
-Autor: Pedro Henrique de Paula Souza
-
-O projeto possui finalidade acadêmica e demonstra a aplicação prática de conceitos fundamentais de análise e tratamento de dados utilizando Python.
-
-👨‍💻 Autor
+## 👨‍💻 Autor
 
 Pedro Henrique de Paula Souza
 
 🔗 GitHub: @meninodeminas
+
+📚 Projeto desenvolvido para fins acadêmicos no Curso de Análise de Dados com Python.
